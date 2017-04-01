@@ -4,14 +4,15 @@ package felipe.arctouch.tmdb.constants;
  * Created by felipe on 01/04/17.
  */
 
-public enum API {
-    TMBD_BASE_URL("http://api.themoviedb.org/3/"),
-    TMBD_BASE_URL_SECURE("https://api.themoviedb.org/3/"),
-    API_KEY("1f54bd990f1cdfb230adb312546d765d");
+
+public enum Languages {
+    //https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+    EN_US("en-US")
+    ;
 
     private String value;
 
-    API(String value) {
+    Languages(String value) {
         this.value = value;
     }
 

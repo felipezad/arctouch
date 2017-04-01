@@ -26,16 +26,14 @@ public class MovieApiModule {
         this.baseUrl = baseUrl;
     }
 
-    public String getBaseUrl() {
-        return baseUrl;
+    public String getBaseUrlImage() {
+        return baseUrlImage;
     }
 
-    public MovieApiModule setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
+    public MovieApiModule setBaseUrlImage(String baseUrlImage) {
+        this.baseUrlImage = baseUrlImage;
         return this;
     }
-
-
 
     @Provides
     @Singleton

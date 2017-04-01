@@ -2,10 +2,11 @@ package felipe.arctouch.tmdb.api;
 
 import felipe.arctouch.tmdb.domain.Configuration;
 import felipe.arctouch.tmdb.domain.Movie;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit.Call;
+import retrofit.http.GET;
+import retrofit.http.Path;
+import retrofit.http.Query;
+
 
 /**
  * Created by felipe on 30/03/17.

@@ -13,24 +13,94 @@ public class Images {
 
     @SerializedName("base_url")
     @Expose
-    public String baseUrl;
+    private String baseUrl;
     @SerializedName("secure_base_url")
     @Expose
-    public String secureBaseUrl;
+    private String secureBaseUrl;
     @SerializedName("backdrop_sizes")
     @Expose
-    public List<String> backdropSizes ;
+    private List<String> backdropSizes ;
     @SerializedName("logo_sizes")
     @Expose
-    public List<String> logoSizes;
+    private List<String> logoSizes;
     @SerializedName("poster_sizes")
     @Expose
-    public List<String> posterSizes;
+    private List<String> posterSizes;
     @SerializedName("profile_sizes")
     @Expose
-    public List<String> profileSizes;
+    private List<String> profileSizes;
     @SerializedName("still_sizes")
     @Expose
-    public List<String> stillSizes;
+    private List<String> stillSizes;
 
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public Images setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+        return this;
+    }
+
+    public String getSecureBaseUrl() {
+        return secureBaseUrl;
+    }
+
+    public Images setSecureBaseUrl(String secureBaseUrl) {
+        this.secureBaseUrl = secureBaseUrl;
+        return this;
+    }
+
+    public List<String> getBackdropSizes() {
+        return backdropSizes;
+    }
+
+    public Images setBackdropSizes(List<String> backdropSizes) {
+        this.backdropSizes = backdropSizes;
+        return this;
+    }
+
+    public List<String> getLogoSizes() {
+        return logoSizes;
+    }
+
+    public Images setLogoSizes(List<String> logoSizes) {
+        this.logoSizes = logoSizes;
+        return this;
+    }
+
+    public List<String> getPosterSizes() {
+        return posterSizes;
+    }
+
+    public Images setPosterSizes(List<String> posterSizes) {
+        this.posterSizes = posterSizes;
+        return this;
+    }
+
+    public List<String> getProfileSizes() {
+        return profileSizes;
+    }
+
+    public Images setProfileSizes(List<String> profileSizes) {
+        this.profileSizes = profileSizes;
+        return this;
+    }
+
+    public List<String> getStillSizes() {
+        return stillSizes;
+    }
+
+    public Images setStillSizes(List<String> stillSizes) {
+        this.stillSizes = stillSizes;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Images{" +
+                "baseUrl='" + baseUrl + '\'' +
+                '}';
+    }
 }

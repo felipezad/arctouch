@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import felipe.arctouch.tmdb.activity.main.MainActivity;
+import felipe.arctouch.tmdb.api.MovieAPI;
 import felipe.arctouch.tmdb.module.ApplicationModule;
 import felipe.arctouch.tmdb.module.MovieApiModule;
 
@@ -18,4 +19,6 @@ import felipe.arctouch.tmdb.module.MovieApiModule;
 )
 public interface MovieApiComponent {
     void inject(MainActivity activity);
+
+    MovieAPI provideMovieApi();
 }

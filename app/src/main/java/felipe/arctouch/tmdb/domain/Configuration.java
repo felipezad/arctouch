@@ -13,14 +13,33 @@ import java.util.List;
 public class Configuration {
     @SerializedName("images")
     @Expose
-    public Images images;
+    private Images images;
     @SerializedName("change_keys")
     @Expose
+    private List<String> changeKeys;
 
+    public Images getImages() {
+        return images;
+    }
 
+    public Configuration setImages(Images images) {
+        this.images = images;
+        return this;
+    }
 
+    public List<String> getChangeKeys() {
+        return changeKeys;
+    }
 
-    public List<String> changeKeys;
+    public Configuration setChangeKeys(List<String> changeKeys) {
+        this.changeKeys = changeKeys;
+        return this;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "images=" + images +
+                '}';
+    }
 }
