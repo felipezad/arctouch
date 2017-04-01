@@ -1,7 +1,6 @@
 package felipe.arctouch.tmdb.api;
 
 import felipe.arctouch.tmdb.domain.Configuration;
-import felipe.arctouch.tmdb.domain.Images;
 import felipe.arctouch.tmdb.domain.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
