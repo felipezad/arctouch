@@ -14,6 +14,7 @@ public class TMDbApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
