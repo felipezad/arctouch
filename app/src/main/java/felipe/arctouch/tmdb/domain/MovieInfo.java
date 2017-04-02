@@ -10,51 +10,64 @@ import java.util.StringJoiner;
  * Created by felipe on 02/04/17.
  */
 public class MovieInfo {
+
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
     @SerializedName("overview")
     @Expose
     private String overview;
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds = null;
 
-    private String movieGenres;
-
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
     @SerializedName("popularity")
     @Expose
     private Double popularity;
+
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+
     @SerializedName("video")
     @Expose
     private Boolean video;
+
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
+    private String movieGenres;
 
     public String getPosterPath() {
         return posterPath;
@@ -183,9 +196,8 @@ public class MovieInfo {
     }
 
     public MovieInfo setGenres(List<GenreInfo> genres){
-
         StringJoiner sj = new StringJoiner(", ");
-        genres.forEach( gen -> sj.add(gen.getName()));
+        genres.forEach(gen -> sj.add(gen.getName()));
         this.movieGenres = sj.toString();
         return this;
     }

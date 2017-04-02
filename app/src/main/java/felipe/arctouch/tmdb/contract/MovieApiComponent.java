@@ -20,6 +20,7 @@ import felipe.arctouch.tmdb.module.MovieApiModule;
 
 )
 public interface MovieApiComponent {
+
     void inject(MainActivity activity);
 
     void inject(HomeFragment fragment);

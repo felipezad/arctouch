@@ -8,9 +8,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class GenreInfo {
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;

@@ -11,9 +11,11 @@ import java.util.List;
  */
 
 public class Configuration {
+
     @SerializedName("images")
     @Expose
     private Images images;
+
     @SerializedName("change_keys")
     @Expose
     private List<String> changeKeys;

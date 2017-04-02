@@ -14,21 +14,27 @@ public class Images {
     @SerializedName("base_url")
     @Expose
     private String baseUrl;
+
     @SerializedName("secure_base_url")
     @Expose
     private String secureBaseUrl;
+
     @SerializedName("backdrop_sizes")
     @Expose
     private List<String> backdropSizes ;
+
     @SerializedName("logo_sizes")
     @Expose
     private List<String> logoSizes;
+
     @SerializedName("poster_sizes")
     @Expose
     private List<String> posterSizes;
+
     @SerializedName("profile_sizes")
     @Expose
     private List<String> profileSizes;
+
     @SerializedName("still_sizes")
     @Expose
     private List<String> stillSizes;
