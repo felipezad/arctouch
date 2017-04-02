@@ -13,53 +13,28 @@ public class Movie {
 
     @SerializedName("page")
     @Expose
-    public Integer page;
+    private Integer page;
     @SerializedName("results")
     @Expose
-    public List<MovieInfo> results;
+    private List<MovieInfo> results;
 
-    private class MovieInfo{
-        @SerializedName("poster_path")
-        @Expose
-        public String posterPath;
-        @SerializedName("adult")
-        @Expose
-        public Boolean adult;
-        @SerializedName("overview")
-        @Expose
-        public String overview;
-        @SerializedName("release_date")
-        @Expose
-        public String releaseDate;
-        @SerializedName("genre_ids")
-        @Expose
-        public List<Integer> genreIds = null;
-        @SerializedName("id")
-        @Expose
-        public Integer id;
-        @SerializedName("original_title")
-        @Expose
-        public String originalTitle;
-        @SerializedName("original_language")
-        @Expose
-        public String originalLanguage;
-        @SerializedName("title")
-        @Expose
-        public String title;
-        @SerializedName("backdrop_path")
-        @Expose
-        public String backdropPath;
-        @SerializedName("popularity")
-        @Expose
-        public Double popularity;
-        @SerializedName("vote_count")
-        @Expose
-        public Integer voteCount;
-        @SerializedName("video")
-        @Expose
-        public Boolean video;
-        @SerializedName("vote_average")
-        @Expose
-        public Double voteAverage;
+    public Integer getPage() {
+        return page;
     }
+
+    public Movie setPage(Integer page) {
+        this.page = page;
+        return this;
+    }
+
+    public List<MovieInfo> getResults() {
+        return results;
+    }
+
+    public Movie setResults(List<MovieInfo> results) {
+        this.results = results;
+        return this;
+    }
+
+
 }

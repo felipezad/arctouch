@@ -17,6 +17,8 @@ import felipe.arctouch.tmdb.api.MovieAPI;
 import felipe.arctouch.tmdb.constants.API;
 import felipe.arctouch.tmdb.constants.Languages;
 import felipe.arctouch.tmdb.contract.MovieApiComponent;
+import felipe.arctouch.tmdb.domain.Configuration;
+import felipe.arctouch.tmdb.domain.Genre;
 import felipe.arctouch.tmdb.domain.Movie;
 import retrofit.Call;
 import retrofit.Callback;
@@ -29,6 +31,8 @@ public class HomeFragment extends Fragment {
     @Inject
     MovieAPI movieAPI;
     Movie firstMovies;
+    Genre genres;
+    Configuration configuration;
 
 
     public HomeFragment() {
@@ -57,6 +61,30 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        Call<Configuration> imageConfiguration = movieAPI.getImageConfiguration(API.API_KEY.getValue());
+        Call<Genre> genre = movieAPI.getGenre(API.API_KEY.getValue(), Languages.EN_US.getValue());
+        imageConfiguration.enqueue(new Callback<Configuration>() {
+            @Override
+            public void onResponse(Response<Configuration> response, Retrofit retrofit) {
+                configuration = response.body();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("movieAPI",t.toString());
+            }
+        });
+        genre.enqueue(new Callback<Genre>() {
+            @Override
+            public void onResponse(Response<Genre> response, Retrofit retrofit) {
+                genres = response.body();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("movieAPI",t.toString());
+            }
+        });
 
     }
 
@@ -70,9 +98,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(Movie movie){
+    public void onButtonPressed(Movie movie, Configuration configuration, Genre genres){
         if (mListener != null) {
-            mListener.onCallMovieList(movie);
+            mListener.onCallMovieList(movie,configuration,genres);
         }
     }
 
@@ -96,16 +124,11 @@ public class HomeFragment extends Fragment {
 
     public interface OnCallMovieList {
         // TODO: Update argument type and name
-        void onCallMovieList(Movie movie);
+        void onCallMovieList(Movie movie, Configuration configuration, Genre genre);
     }
 
     private void callMovieList(ImageView imageView){
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPressed(firstMovies);
-            }
-        });
+        imageView.setOnClickListener(v -> onButtonPressed(firstMovies, configuration, genres));
     }
 
 

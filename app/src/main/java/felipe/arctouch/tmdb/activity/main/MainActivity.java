@@ -3,6 +3,8 @@ package felipe.arctouch.tmdb.activity.main;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.google.gson.Gson;
 
@@ -16,6 +18,8 @@ import felipe.arctouch.tmdb.constants.API;
 import felipe.arctouch.tmdb.contract.ApplicationComponent;
 import felipe.arctouch.tmdb.contract.DaggerMovieApiComponent;
 import felipe.arctouch.tmdb.contract.MovieApiComponent;
+import felipe.arctouch.tmdb.domain.Configuration;
+import felipe.arctouch.tmdb.domain.Genre;
 import felipe.arctouch.tmdb.domain.Movie;
 import felipe.arctouch.tmdb.module.ApplicationModule;
 import felipe.arctouch.tmdb.module.MovieApiModule;
@@ -39,22 +43,6 @@ public class MainActivity extends AppCompatActivity
         ;
         movieApiComponent.inject(this);
 
-        /*Call<Configuration> imageConfiguration = movieAPI.getImageConfiguration(API.API_KEY.getValue());
-        imageConfiguration.enqueue(new Callback<Configuration>() {
-
-            @Override
-            public void onResponse(Response<Configuration> response, Retrofit retrofit) {
-                Configuration body = response.body();
-                Log.i("movieAPI",body.toString());
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("movieAPI",t.toString());
-            }
-        });
-        */
-
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.fragment_container) != null) {
 
@@ -73,12 +61,15 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onCallMovieList(Movie movie) {
+    public void onCallMovieList(Movie movie, Configuration configuration, Genre genre) {
         if(movie != null){
             MovieListFragment newFragment = new MovieListFragment();
             Bundle args = new Bundle();
             args.putString("firstPage", gson.toJson(movie));
+            args.putString("configuration", gson.toJson(configuration));
+            args.putString("genre", gson.toJson(genre));
             newFragment.setArguments(args);
+            newFragment.setHasOptionsMenu(true);
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -100,5 +91,8 @@ public class MainActivity extends AppCompatActivity
         return movieApiComponent;
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
 }
