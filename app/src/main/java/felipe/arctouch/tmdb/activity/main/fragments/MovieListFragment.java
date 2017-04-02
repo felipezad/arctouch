@@ -48,6 +48,7 @@ public class MovieListFragment extends Fragment {
     private Configuration configuration;
     private Genre genre;
     private static Integer nextPage = 2;
+    private boolean isLoading;
 
     public MovieListFragment() {
         // Required empty public constructor
@@ -70,6 +71,7 @@ public class MovieListFragment extends Fragment {
         movie = gson.fromJson(firstMovies, Movie.class);
         configuration = gson.fromJson(configurationString, Configuration.class);
         genre = gson.fromJson(genreString, Genre.class);
+        isLoading = false;
     }
 
     @Override
@@ -92,22 +94,27 @@ public class MovieListFragment extends Fragment {
                         super.onScrolled(recyclerView, dx, dy);
                         LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
                         if(movie.getResults().size() - 3 == layoutManager.findLastCompletelyVisibleItemPosition() ){
-                            MovieAdapter movieAdapter = (MovieAdapter) mRecyclerView.getAdapter();
-                            Call<Movie> upcomingMovies = movieApi.getUpcomingMovies(API.API_KEY.getValue(), Languages.EN_US.getValue(), (nextPage++));
-                            upcomingMovies.enqueue(new Callback<Movie>() {
-                                @Override
-                                public void onResponse(Response<Movie> response, Retrofit retrofit) {
-                                    Log.i("movieAdapterPages", String.valueOf(nextPage));
-                                    movieAdapter.addListItem(response.body().getResults(),movie.getResults().size());
-                                }
+                            if(!isLoading){
+                                isLoading = true;
+                                MovieAdapter movieAdapter = (MovieAdapter) mRecyclerView.getAdapter();
+                                Call<Movie> upcomingMovies = movieApi.getUpcomingMovies(API.API_KEY.getValue(), Languages.EN_US.getValue(), (nextPage++));
+                                upcomingMovies.enqueue(new Callback<Movie>() {
+                                    @Override
+                                    public void onResponse(Response<Movie> response, Retrofit retrofit) {
+                                        Log.i("movieAdapterPages", String.valueOf(nextPage));
+                                        movieAdapter.addListItem(response.body().getResults(),movie.getResults().size());
+                                        isLoading = false;
+                                    }
 
-                                @Override
-                                public void onFailure(Throwable t) {
-                                    Log.i("movieAdapter", t.toString());
+                                    @Override
+                                    public void onFailure(Throwable t) {
+                                        Log.i("movieAdapter", t.toString());
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         }
+
                     }
                 });
 
