@@ -97,6 +97,7 @@ public class MovieListFragment extends Fragment {
                             upcomingMovies.enqueue(new Callback<Movie>() {
                                 @Override
                                 public void onResponse(Response<Movie> response, Retrofit retrofit) {
+                                    Log.i("movieAdapterPages", String.valueOf(nextPage));
                                     movieAdapter.addListItem(response.body().getResults(),movie.getResults().size());
                                 }
 

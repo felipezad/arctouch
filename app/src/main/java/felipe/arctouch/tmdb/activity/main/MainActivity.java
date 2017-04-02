@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCallMovieList(Movie movie, Configuration configuration, Genre genre) {
-        if(movie != null){
+        if(movie != null && configuration != null && genre != null){
             MovieListFragment newFragment = new MovieListFragment();
             Bundle args = new Bundle();
             args.putString("firstPage", gson.toJson(movie));

@@ -100,7 +100,8 @@ public class HomeFragment extends Fragment {
 
     public void onButtonPressed(Movie movie, Configuration configuration, Genre genres){
         if (mListener != null) {
-            mListener.onCallMovieList(movie,configuration,genres);
+            if(movie != null && configuration != null && genres != null)
+                mListener.onCallMovieList(movie,configuration,genres);
         }
     }
 

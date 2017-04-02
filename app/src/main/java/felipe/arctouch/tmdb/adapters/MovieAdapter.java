@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import felipe.arctouch.tmdb.R;
-import felipe.arctouch.tmdb.constants.PosterSize;
 import felipe.arctouch.tmdb.domain.Configuration;
 import felipe.arctouch.tmdb.domain.Genre;
 import felipe.arctouch.tmdb.domain.GenreInfo;
@@ -55,14 +54,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MovieInfo movieInfo = filteredMovies.get(position);
         List<Integer> genreIds = movieInfo.getGenreIds();
-        List<GenreInfo> genreInfos = genre.getGenreInfoById(genreIds);
-        movieInfo.setGenres(genreInfos);
+        if(genre !=null){
+
+            List<GenreInfo> genreInfos = genre.getGenreInfoById(genreIds);
+            movieInfo.setGenres(genreInfos);
+        }
         String baseUrl = configuration.getImages().getBaseUrl();
         List<String> posterSizes = configuration.getImages().getPosterSizes();
         Picasso.with(mContext).load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath()).into(holder.ivMovieImage);
         holder.tvMovieName.setText(movieInfo.getTitle());
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
+        holder.tvPartialSynopsis.setText(movieInfo.getOverview().substring(0,50).concat("..."));
+        holder.tvFullSynopsis.setText(movieInfo.getOverview());
     }
 
     @Override
@@ -110,6 +114,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         public ImageView ivMovieImage;
         public TextView tvMovieGenre;
         public TextView tvMovieReleaseDate;
+        public TextView tvFullSynopsis;
+        public TextView tvPartialSynopsis;
+        public TextView tvMoreInfo;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -117,6 +124,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             ivMovieImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
             tvMovieGenre = (TextView) itemView.findViewById(R.id.tvMovieGenre);
             tvMovieReleaseDate = (TextView) itemView.findViewById(R.id.tvMovieReleaseDate);
+            tvFullSynopsis = (TextView) itemView.findViewById(R.id.tvFullSynopsis);
+            tvPartialSynopsis = (TextView) itemView.findViewById(R.id.tvPartialSynopsis);
+            tvMoreInfo = (TextView) itemView.findViewById(R.id.tvMoreInfo);
+            itemView.setOnClickListener(v -> {
+                if(tvFullSynopsis.getVisibility() == View.GONE){
+                    tvPartialSynopsis.setVisibility(View.GONE);
+                    tvMoreInfo.setVisibility(View.GONE);
+                    tvFullSynopsis.setVisibility(View.VISIBLE);
+                }else{
+                    tvPartialSynopsis.setVisibility(View.VISIBLE);
+                    tvMoreInfo.setVisibility(View.VISIBLE);
+                    tvFullSynopsis.setVisibility(View.GONE);
+                }
+
+            });
         }
     }
 }
