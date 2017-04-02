@@ -153,6 +153,8 @@ public class MovieListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.i("onQueryTextChange",newText);
+                MovieAdapter movieAdapter = (MovieAdapter) mRecyclerView.getAdapter();
+                movieAdapter.getFilter().filter(newText);
                 return false;
             }
         });
