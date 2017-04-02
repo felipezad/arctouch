@@ -27,6 +27,7 @@ import felipe.arctouch.tmdb.domain.MovieInfo;
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> implements Filterable{
+
     private Configuration configuration;
     private Genre genre;
     private Context mContext;
@@ -61,7 +62,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         }
         String baseUrl = configuration.getImages().getBaseUrl();
         List<String> posterSizes = configuration.getImages().getPosterSizes();
-        Picasso.with(mContext).load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath()).into(holder.ivMovieImage);
+        Picasso.with(mContext)
+                .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
+                .placeholder(R.drawable.ic_default_placeholder_dark)
+                .into(holder.ivMovieImage);
         holder.tvMovieName.setText(movieInfo.getTitle());
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
