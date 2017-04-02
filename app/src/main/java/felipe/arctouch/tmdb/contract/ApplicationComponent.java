@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import felipe.arctouch.tmdb.activity.main.MainActivity;
+import felipe.arctouch.tmdb.activity.main.fragments.MovieListFragment;
 import felipe.arctouch.tmdb.module.ApplicationModule;
 
 /**
@@ -18,6 +20,9 @@ import felipe.arctouch.tmdb.module.ApplicationModule;
         }
 )
 public interface ApplicationComponent {
+
+    void inject(MainActivity activity);
+
     SharedPreferences provideSharedPreferences();
 
     Application provideApplication();
