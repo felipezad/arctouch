@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import felipe.arctouch.tmdb.R;
+import felipe.arctouch.tmdb.constants.PosterSize;
 import felipe.arctouch.tmdb.domain.Configuration;
 import felipe.arctouch.tmdb.domain.Genre;
 import felipe.arctouch.tmdb.domain.GenreInfo;
@@ -53,9 +57,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         List<Integer> genreIds = movieInfo.getGenreIds();
         List<GenreInfo> genreInfos = genre.getGenreInfoById(genreIds);
         movieInfo.setGenres(genreInfos);
-
+        String baseUrl = configuration.getImages().getBaseUrl();
+        List<String> posterSizes = configuration.getImages().getPosterSizes();
+        Picasso.with(mContext).load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath()).into(holder.ivMovieImage);
         holder.tvMovieName.setText(movieInfo.getTitle());
-        holder.tvMovieImage.setText(movieInfo.getBackdropPath());
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
     }
@@ -102,14 +107,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         public TextView tvMovieName;
-        public TextView tvMovieImage;
+        public ImageView ivMovieImage;
         public TextView tvMovieGenre;
         public TextView tvMovieReleaseDate;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tvMovieName = (TextView) itemView.findViewById(R.id.tvMovieName);
-            tvMovieImage = (TextView) itemView.findViewById(R.id.tvMovieImage);
+            ivMovieImage = (ImageView) itemView.findViewById(R.id.ivMovieImage);
             tvMovieGenre = (TextView) itemView.findViewById(R.id.tvMovieGenre);
             tvMovieReleaseDate = (TextView) itemView.findViewById(R.id.tvMovieReleaseDate);
         }

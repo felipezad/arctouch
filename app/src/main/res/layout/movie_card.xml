@@ -5,17 +5,14 @@
     android:orientation="vertical"
     android:id="@+id/movie_card"
     android:layout_gravity="center"
-    android:layout_width="200dp"
+    android:layout_width="400dp"
     android:layout_height="200dp"
-    android:layout_marginBottom="0dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    card_view:cardElevation="3dp"
+    android:layout_marginBottom="15dp"
+    card_view:cardElevation="20dp"
     card_view:cardUseCompatPadding="false"
     card_view:cardPreventCornerOverlap="false"
-    card_view:cardMaxElevation="3dp"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardMaxElevation="20dp"
+    card_view:cardCornerRadius="0dp"
     >
 
     <RelativeLayout
@@ -27,27 +24,76 @@
             android:id="@+id/tvMovieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/ivMovieImage"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
-            />
-        <TextView
-            android:id="@+id/tvMovieImage"
+
+        <ImageView
+            android:id="@+id/ivMovieImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMovieName"
+            android:layout_alignParentTop="true"
+            android:minWidth="90dp"
+
+
             />
+
         <TextView
             android:id="@+id/tvMovieGenre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMovieImage"
-            />
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:visibility="visible"
+            android:layout_alignBaseline="@+id/tvGenreLabel"
+            android:layout_alignBottom="@+id/tvGenreLabel"
+            android:layout_toEndOf="@+id/tvGenreLabel"
+            android:layout_marginStart="5dp"/>
+
         <TextView
             android:id="@+id/tvMovieReleaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMovieGenre"
+            android:layout_alignBaseline="@+id/tvReleaseDateLabel"
+            android:layout_alignBottom="@+id/tvReleaseDateLabel"
+            android:layout_toEndOf="@+id/tvReleaseDateLabel"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:visibility="visible"
+            android:layout_marginStart="5dp"
             />
+
+
+        <TextView
+            android:id="@+id/tvGenreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genre_label"
+            android:visibility="visible"
+            android:layout_below="@+id/tvMovieName"
+            android:layout_alignStart="@+id/tvMovieName" />
+
+        <TextView
+            android:id="@+id/tvReleaseDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvGenreLabel"
+            android:layout_below="@+id/tvMovieGenre"
+            android:text="@string/release_date_label"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ivMoreInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:srcCompat="@android:drawable/ic_menu_info_details"
+            android:layout_marginTop="52dp"
+            android:layout_below="@+id/tvReleaseDateLabel"
+            android:layout_toEndOf="@+id/tvMovieReleaseDate"
+            android:layout_marginStart="61dp" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

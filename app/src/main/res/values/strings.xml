@@ -4,4 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home_fragment">Hello home blank fragment</string>
     <string name="movie_list_fragment">Hello movie list blank fragment</string>
+    <string name="movie_label">Movie:</string>
+    <string name="genre_label">Genre:</string>
+    <string name="release_date_label">Release:</string>
 </resources>

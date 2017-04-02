@@ -5,7 +5,6 @@ import felipe.arctouch.tmdb.domain.Genre;
 import felipe.arctouch.tmdb.domain.Movie;
 import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 
@@ -24,8 +23,5 @@ public interface MovieAPI {
 
     @GET("configuration")
     Call<Configuration> getImageConfiguration(@Query("api_key") String apiKey);
-
-    @GET("{baseUrl}/{size}/{filePath}")
-    Call<String> getUrlImage(@Path("baseUrl") String baseUrl, @Path("size") String size, @Path("filePath") String filePath);
 
 }
