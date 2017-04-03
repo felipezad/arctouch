@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Throwable t) {
                 Log.i("movieAPI",t.toString());
+                loadGenres();
             }
         });
     }
