@@ -2,6 +2,7 @@ package felipe.arctouch.tmdb.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,10 +65,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         }
         String baseUrl = configuration.getImages().getBaseUrl();
         List<String> posterSizes = configuration.getImages().getPosterSizes();
-        Picasso.with(mContext)
-                .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
-                .placeholder(R.drawable.ic_default_placeholder_dark)
-                .into(holder.ivMovieImage);
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_default_placeholder_dark,null);
+
+        if(movieInfo.getPosterPath() != null){
+            Picasso.with(mContext)
+                    .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
+                    .placeholder(drawable)
+                    .into(holder.ivMovieImage);
+
+        }else{
+            Picasso.with(mContext)
+                    .load(R.drawable.ic_default_placeholder_dark)
+                    .fit()
+                    .centerInside()
+                    .placeholder(drawable)
+                    .into(holder.ivMovieImage);
+        }
+
+
         holder.tvMovieName.setText(movieInfo.getTitle());
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
