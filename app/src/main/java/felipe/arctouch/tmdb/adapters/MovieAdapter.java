@@ -38,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public MovieAdapter(Context mContext, List<MovieInfo> movies, Configuration configuration, Genre genre) {
         this.mContext = mContext;
         this.movies = movies;
-        this.filteredMovies = movies;
+        this.filteredMovies = new ArrayList<>(movies);
         this.genre = genre;
         this.configuration = configuration;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,7 +66,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                 .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
                 .placeholder(R.drawable.ic_default_placeholder_dark)
                 .into(holder.ivMovieImage);
-        holder.tvMovieName.setText(movieInfo.getTitle());
+        holder.tvMovieName.setText(movieInfo.getTitle().concat(" - "+position+1));
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
         holder.tvPartialSynopsis.setText(movieInfo.getOverview().substring(0,50).concat("..."));

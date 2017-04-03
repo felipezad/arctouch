@@ -205,4 +205,26 @@ public class MovieInfo {
     public String getMovieGenres() {
         return movieGenres;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MovieInfo movieInfo = (MovieInfo) o;
+
+        if (id != null ? !id.equals(movieInfo.id) : movieInfo.id != null) return false;
+        if (originalTitle != null ? !originalTitle.equals(movieInfo.originalTitle) : movieInfo.originalTitle != null)
+            return false;
+        return title != null ? title.equals(movieInfo.title) : movieInfo.title == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
+    }
 }
