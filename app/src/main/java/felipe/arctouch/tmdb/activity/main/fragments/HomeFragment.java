@@ -47,9 +47,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         MovieApiComponent movieApiComponent = ((MainActivity) getActivity()).getMovieApiComponent();
         movieApiComponent.inject(this);
-        loadGenres();
-
-
     }
 
     @Override
@@ -82,6 +79,12 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadGenres();
     }
 
     public interface OnCallMovieList {
@@ -138,6 +141,8 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
 
 
 }
