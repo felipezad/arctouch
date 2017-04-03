@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import javax.inject.Inject;
 
@@ -48,43 +47,8 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         MovieApiComponent movieApiComponent = ((MainActivity) getActivity()).getMovieApiComponent();
         movieApiComponent.inject(this);
-        Call<Movie> upcomingMovies = movieAPI.getUpcomingMovies(API.API_KEY.getValue(), Languages.EN_US.getValue(), 1);
-        upcomingMovies.enqueue(new Callback<Movie>() {
-            @Override
-            public void onResponse(Response<Movie> response, Retrofit retrofit) {
-                firstMovies = response.body();
-            }
+        loadGenres();
 
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("movieAPI",t.toString());
-
-            }
-        });
-        Call<Configuration> imageConfiguration = movieAPI.getImageConfiguration(API.API_KEY.getValue());
-        Call<Genre> genre = movieAPI.getGenre(API.API_KEY.getValue(), Languages.EN_US.getValue());
-        imageConfiguration.enqueue(new Callback<Configuration>() {
-            @Override
-            public void onResponse(Response<Configuration> response, Retrofit retrofit) {
-                configuration = response.body();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("movieAPI",t.toString());
-            }
-        });
-        genre.enqueue(new Callback<Genre>() {
-            @Override
-            public void onResponse(Response<Genre> response, Retrofit retrofit) {
-                genres = response.body();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("movieAPI",t.toString());
-            }
-        });
 
     }
 
@@ -92,13 +56,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        callMovieList((ImageView) view.findViewById(R.id.upComingButton));
-
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public void onButtonPressed(Movie movie, Configuration configuration, Genre genres){
+    public void onMoviesReady(Movie movie, Configuration configuration, Genre genres){
         if (mListener != null) {
             if(movie != null && configuration != null && genres != null)
                 mListener.onCallMovieList(movie,configuration,genres);
@@ -128,8 +89,54 @@ public class HomeFragment extends Fragment {
         void onCallMovieList(Movie movie, Configuration configuration, Genre genre);
     }
 
-    private void callMovieList(ImageView imageView){
-        imageView.setOnClickListener(v -> onButtonPressed(firstMovies, configuration, genres));
+
+    private void loadConfiguration(){
+        Call<Configuration> imageConfiguration = movieAPI.getImageConfiguration(API.API_KEY.getValue());
+
+        imageConfiguration.enqueue(new Callback<Configuration>() {
+            @Override
+            public void onResponse(Response<Configuration> response, Retrofit retrofit) {
+                configuration = response.body();
+                loadMovies();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("movieAPI",t.toString());
+            }
+        });
+    }
+    private void loadMovies(){
+        Call<Movie> upcomingMovies = movieAPI.getUpcomingMovies(API.API_KEY.getValue(), Languages.EN_US.getValue(), 1);
+        upcomingMovies.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Response<Movie> response, Retrofit retrofit) {
+                firstMovies = response.body();
+                onMoviesReady(firstMovies,configuration,genres);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("movieAPI",t.toString());
+
+            }
+        });
+    }
+    private void loadGenres(){
+        Call<Genre> genre = movieAPI.getGenre(API.API_KEY.getValue(), Languages.EN_US.getValue());
+
+        genre.enqueue(new Callback<Genre>() {
+            @Override
+            public void onResponse(Response<Genre> response, Retrofit retrofit) {
+                genres = response.body();
+                loadConfiguration();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.i("movieAPI",t.toString());
+            }
+        });
     }
 
 
