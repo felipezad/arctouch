@@ -111,8 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tvPartialSynopsis"
             android:layout_below="@+id/tvPartialSynopsis"
-            android:layout_marginStart="75dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="15dp"
             android:text="@string/more_info"
             android:textColor="@android:color/black" />
 
