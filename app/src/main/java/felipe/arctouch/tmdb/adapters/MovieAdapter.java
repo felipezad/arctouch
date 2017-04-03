@@ -1,6 +1,8 @@
 package felipe.arctouch.tmdb.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,11 +68,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                 .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
                 .placeholder(R.drawable.ic_default_placeholder_dark)
                 .into(holder.ivMovieImage);
-        holder.tvMovieName.setText(movieInfo.getTitle().concat(" - "+(++position)));
+        holder.tvMovieName.setText(movieInfo.getTitle());
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
         holder.tvPartialSynopsis.setText(movieInfo.getOverview().substring(0,50).concat("..."));
         holder.tvFullSynopsis.setText(movieInfo.getOverview());
+        holder.ivTrailer.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://www.google.com.br/#q="+movieInfo.getTitle()+"&tbm=vid"));
+            mContext.startActivity(intent);
+        });
     }
 
     @Override
@@ -121,6 +130,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         public TextView tvFullSynopsis;
         public TextView tvPartialSynopsis;
         public TextView tvMoreInfo;
+        public ImageView ivTrailer;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -131,6 +141,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             tvFullSynopsis = (TextView) itemView.findViewById(R.id.tvFullSynopsis);
             tvPartialSynopsis = (TextView) itemView.findViewById(R.id.tvPartialSynopsis);
             tvMoreInfo = (TextView) itemView.findViewById(R.id.tvMoreInfo);
+            ivTrailer = (ImageView) itemView.findViewById(R.id.ivTrailer);
             itemView.setOnClickListener(v -> {
                 if(tvFullSynopsis.getVisibility() == View.GONE){
                     tvPartialSynopsis.setVisibility(View.GONE);
