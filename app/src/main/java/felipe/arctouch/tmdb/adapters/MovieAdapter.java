@@ -66,7 +66,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                 .load(baseUrl+posterSizes.get(3)+movieInfo.getPosterPath())
                 .placeholder(R.drawable.ic_default_placeholder_dark)
                 .into(holder.ivMovieImage);
-        holder.tvMovieName.setText(movieInfo.getTitle().concat(" - "+position+1));
+        holder.tvMovieName.setText(movieInfo.getTitle().concat(" - "+(++position)));
         holder.tvMovieGenre.setText(movieInfo.getMovieGenres());
         holder.tvMovieReleaseDate.setText(movieInfo.getReleaseDate());
         holder.tvPartialSynopsis.setText(movieInfo.getOverview().substring(0,50).concat("..."));
