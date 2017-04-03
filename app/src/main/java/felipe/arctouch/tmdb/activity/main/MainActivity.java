@@ -87,6 +87,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     public MovieApiComponent getMovieApiComponent(){
+        if(movieApiComponent == null){
+            movieApiComponent = DaggerMovieApiComponent.builder()
+                    .movieApiModule(new MovieApiModule(API.TMBD_BASE_URL_SECURE.getValue()))
+                    .applicationModule(new ApplicationModule(getApplicationComponent().provideApplication()))
+                    .build()
+            ;
+            movieApiComponent.inject(this);
+        }
         return movieApiComponent;
     }
 
@@ -94,4 +102,5 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
 }
