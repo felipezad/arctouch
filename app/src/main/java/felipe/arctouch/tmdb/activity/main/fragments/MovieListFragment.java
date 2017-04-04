@@ -65,6 +65,7 @@ public class MovieListFragment extends Fragment {
         MovieApiComponent movieApiComponent = ((MainActivity) getActivity()).getMovieApiComponent();
         movieApiComponent.inject(this);
 
+        setHasOptionsMenu(true);
         String firstMovies = getArguments().getString("firstPage");
         String configurationString = getArguments().getString("configuration");
         String genreString = getArguments().getString("genre");

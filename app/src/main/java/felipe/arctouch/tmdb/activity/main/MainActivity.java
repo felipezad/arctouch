@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity
             args.putString("configuration", gson.toJson(configuration));
             args.putString("genre", gson.toJson(genre));
             newFragment.setArguments(args);
-            newFragment.setHasOptionsMenu(true);
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
